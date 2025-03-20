@@ -5,32 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Charity for Indian School</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("defaultOpen").click();
+        });
+    </script>
 </head>
 <body>
     <header>
         <h1>Charity for Indian School</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="programs.html">Programs</a></li>
-                <li><a href="donate.html">Donate</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="#home" class="tablinks" onclick="openTab(event, 'home')" id="defaultOpen">Home</a></li>
+                <li><a href="#about" class="tablinks" onclick="openTab(event, 'about')">About Us</a></li>
+                <li><a href="#programs" class="tablinks" onclick="openTab(event, 'programs')">Programs</a></li>
+                <li><a href="#donate" class="tablinks" onclick="openTab(event, 'donate')">Donate</a></li>
+                <li><a href="#contact" class="tablinks" onclick="openTab(event, 'contact')">Contact Us</a></li>
+                <li><a href="#gallery" class="tablinks" onclick="openTab(event, 'gallery')">Gallery</a></li>
+                <li><a href="#testimonials" class="tablinks" onclick="openTab(event, 'testimonials')">Testimonials</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="home">
+    <div id="home" class="tabcontent">
         <h2>Welcome to Our Charity</h2>
         <p>Our mission is to support the education of underprivileged children in India.</p>
-    </section>
+    </div>
+
+    <div id="about" class="tabcontent">
+        <h2>About Us</h2>
+        <p>We are a non-profit organization dedicated to improving the lives of children through education.</p>
+    </div>
+
+    <div id="programs" class="tabcontent">
+        <h2>Our Programs</h2>
+        <p>Every year, we make a heartfelt journey to visit a group of incredible children in India. These young individuals embody kindness, perseverance, and an unbreakable spirit despite the challenges they face. Their dedication to learning and self-improvement is truly inspiring. It is our unwavering mission to support and empower them, ensuring they have access to the opportunities, education, and resources necessary to build a brighter future. By standing by their side, we hope to help them realize their full potential and create lasting, positive change in their lives. Join us in this journey and be a part of shaping a better tomorrow for these amazing kids.</p>
+    </div>
+
+    <div id="donate" class="tabcontent">
+        <h2>Donate</h2>
+        <p>Help us make a difference by donating to our cause. Online donations are accepted.</p>
+        <button>Donate Now</button>
+    </div>
+
+    <div id="contact" class="tabcontent">
+        <h2>Contact Us</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+        </form>
+    </div>
+
+    <div id="gallery" class="tabcontent">
+        <h2>Gallery</h2>
+        <p>Photos and videos of our activities and events.</p>
+    </div>
+
+    <div id="testimonials" class="tabcontent">
+        <h2>Testimonials</h2>
+        <p>Stories and testimonials from our students, parents, and donors.</p>
+    </div>
 
     <footer>
         <p>&copy; Charity for Indian School. All rights reserved.</p>
-        <p>Email: <a href="mailto:sagaramte@gmail.com">sagaramte@gmail.com</a></p>
-        <p>Phone: +1(510)-329-1599</p>
+        <p>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+        <p>Phone: +91-xxxxxxxxxx</p>
     </footer>
 </body>
 </html>
