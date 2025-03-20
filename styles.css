@@ -17,19 +17,28 @@ header {
 nav ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul li {
-    display: inline;
     margin: 0 1em;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
+    padding: 1em;
+    display: block;
 }
 
-section {
+nav ul li a:hover, nav ul li a.active {
+    background-color: #990000; /* Darker red */
+}
+
+.tabcontent {
+    display: none;
     padding: 2em;
     border-bottom: 1px solid #990000; /* Darker red border */
 }
