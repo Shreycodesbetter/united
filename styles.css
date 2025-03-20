@@ -3,11 +3,12 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #ffe6e6; /* Light red background */
+    background-color: #333; /* Dark background */
+    color: #f0f0f0; /* Light text */
 }
 
 header {
-    background-color: #b30000; /* Dark red */
+    background-color: #660000; /* Dark red */
     color: white;
     padding: 1em 0;
     text-align: center;
@@ -30,22 +31,18 @@ nav ul li a {
 
 section {
     padding: 2em;
-    border-bottom: 1px solid #ff9999; /* Light red border */
-}
-
-section:nth-child(even) {
-    background-color: #ffcccc; /* Very light red for alternating sections */
+    border-bottom: 1px solid #990000; /* Darker red border */
 }
 
 footer {
-    background-color: #b30000; /* Dark red */
+    background-color: #660000; /* Dark red */
     color: white;
     text-align: center;
     padding: 1em 0;
 }
 
 button {
-    background-color: #ff4d4d; /* Bright red */
+    background-color: #cc0000; /* Bright red */
     color: white;
     border: none;
     padding: 0.5em 1em;
@@ -53,23 +50,25 @@ button {
 }
 
 button:hover {
-    background-color: #ff1a1a; /* Darker red on hover */
+    background-color: #990000; /* Darker red on hover */
 }
 
 form label {
     display: block;
     margin-top: 1em;
-    color: #b30000; /* Dark red */
+    color: #cc0000; /* Bright red */
 }
 
 form input, form textarea {
     width: 100%;
     padding: 0.5em;
     margin-top: 0.5em;
-    border: 1px solid #b30000; /* Dark red border */
+    border: 1px solid #cc0000; /* Bright red border */
+    background-color: #444; /* Dark input background */
+    color: #f0f0f0; /* Light input text */
 }
 
 form input:focus, form textarea:focus {
-    border: 1px solid #ff4d4d; /* Bright red border on focus */
+    border: 1px solid #ff6666; /* Lighter red border on focus */
     outline: none;
 }
