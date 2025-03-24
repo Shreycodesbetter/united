@@ -120,3 +120,23 @@ form input:focus, form textarea:focus {
     outline: none;
     background-color: #f9f9f9; /* Light grey input background on focus */
 }
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.gallery-item {
+    flex: 1 1 calc(20% - 1em); /* 5 items per row with a gap */
+    margin-bottom: 1em;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
