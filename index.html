@@ -19,6 +19,14 @@
             }
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
+            moveIndicator(evt.currentTarget);
+        }
+
+        function moveIndicator(element) {
+            const indicator = document.querySelector('.indicator');
+            const rect = element.getBoundingClientRect();
+            indicator.style.left = rect.left + "px";
+            indicator.style.width = rect.width + "px";
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -40,6 +48,7 @@
                 <li><a href="donate.html" class="tablinks" onclick="openTab(event, 'donate')">Donate</a></li>
                 <li><a href="#gallery" class="tablinks" onclick="openTab(event, 'gallery')">Gallery</a></li>
                 <li><a href="#testimonials" class="tablinks" onclick="openTab(event, 'testimonials')">Testimonials</a></li>
+                <div class="indicator"></div>
             </ul>
         </nav>
     </header>
@@ -67,7 +76,7 @@
 
     <div id="gallery" class="tabcontent">
         <h2>Gallery</h2>
-        <p>Photos and videos of our activities and events. Our gallery showcases the smiles, achievements, and transformative moments of the children we support. Browse through our collection to witness the impact of our efforts and the joy we bring to these young minds. Each photo and video captures the essence of our mission and the positive change we strive to create.</p>
+        <p>Photos and videos of our activities and events. Our gallery showcases the smiles, achievements, and transformative moments of the children we support. Browse through our collection to witness the impact of our efforts and the joy we bring to these young minds. From educational workshops to community events, each photo and video captures the essence of our mission and the positive change we strive to create.</p>
         <div class="gallery-container">
             <div class="gallery-item tall"><img src="img1.jpg" alt="Image 1"></div>
             <div class="gallery-item wide"><img src="img2.jpg" alt="Image 2"></div>
