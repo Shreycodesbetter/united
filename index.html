@@ -12,12 +12,16 @@
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
             }
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
             document.getElementById(tabName).style.display = "block";
+            setTimeout(() => {
+                document.getElementById(tabName).classList.add("active");
+            }, 10);
             evt.currentTarget.className += " active";
             moveIndicator(evt.currentTarget);
         }
@@ -25,14 +29,15 @@
         function moveIndicator(element) {
             const indicator = document.querySelector('.indicator');
             const rect = element.getBoundingClientRect();
-            indicator.style.left = rect.left + "px";
-            indicator.style.width = rect.width + "px";
+            indicator.style.top = rect.top + "px";
+            indicator.style.height = rect.height + "px";
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("defaultOpen").click();
         });
     </script>
+    <script src="//code.tidio.co/glog0vlopasrnkixnhew2fzus8ki8un4.js" async></script>
 </head>
 <body>
     <header>
@@ -40,18 +45,19 @@
             <img src="favicon.ico" alt="Brighter Tomorrow Logo" class="logo">
             <h1>Brighter Tomorrow - Charity for Indian School</h1>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#home" class="tablinks" onclick="openTab(event, 'home')" id="defaultOpen">Home</a></li>
-                <li><a href="#about" class="tablinks" onclick="openTab(event, 'about')">About Us</a></li>
-                <li><a href="#programs" class="tablinks" onclick="openTab(event, 'programs')">Programs</a></li>
-                <li><a href="donate.html" class="tablinks" onclick="openTab(event, 'donate')">Donate</a></li>
-                <li><a href="#gallery" class="tablinks" onclick="openTab(event, 'gallery')">Gallery</a></li>
-                <li><a href="#testimonials" class="tablinks" onclick="openTab(event, 'testimonials')">Testimonials</a></li>
-                <div class="indicator"></div>
-            </ul>
-        </nav>
     </header>
+
+    <nav class="sidebar">
+        <ul>
+            <li><a href="#home" class="tablinks" onclick="openTab(event, 'home')" id="defaultOpen">Home</a></li>
+            <li><a href="#about" class="tablinks" onclick="openTab(event, 'about')">About Us</a></li>
+            <li><a href="#programs" class="tablinks" onclick="openTab(event, 'programs')">Programs</a></li>
+            <li><a href="donate.html" class="tablinks" onclick="openTab(event, 'donate')">Donate</a></li>
+            <li><a href="#gallery" class="tablinks" onclick="openTab(event, 'gallery')">Gallery</a></li>
+            <li><a href="#testimonials" class="tablinks" onclick="openTab(event, 'testimonials')">Testimonials</a></li>
+            <div class="indicator"></div>
+        </ul>
+    </nav>
 
     <div id="home" class="tabcontent">
         <h2>Welcome to Brighter Tomorrow</h2>
