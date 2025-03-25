@@ -13,6 +13,7 @@ header {
     color: white;
     padding: 1.5em;
     text-align: center;
+    position: relative;
 }
 
 .logo-container {
@@ -39,10 +40,12 @@ nav ul {
     margin: 0;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 nav ul li {
     margin: 0 1em;
+    position: relative;
 }
 
 nav ul li a {
@@ -56,6 +59,14 @@ nav ul li a {
 nav ul li a:hover, nav ul li a.active {
     background-color: #ff3b30; /* Darker red */
     border-radius: 5px;
+}
+
+.indicator {
+    position: absolute;
+    bottom: 0;
+    height: 4px;
+    background-color: #ff3b30; /* Darker red */
+    transition: left 0.3s ease, width 0.3s ease;
 }
 
 .tabcontent {
@@ -163,4 +174,11 @@ form input:focus, form textarea:focus {
 
 .paypal-button:hover {
     background-color: #cc2a24; /* Darker red on hover */
+}
+
+.venmo-qr-code {
+    max-width: 200px;
+    margin-top: 1em;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
