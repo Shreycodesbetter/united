@@ -49,6 +49,10 @@ header h1 {
     left: 0;
 }
 
+body:hover .sidebar {
+    left: 0;
+}
+
 .sidebar ul {
     list-style-type: none;
     padding: 0;
