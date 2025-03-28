@@ -10,10 +10,11 @@
         .sidebar {
             width: 250px;
             overflow: hidden;
-            transition: width 0.3s;
+            transition: width 0.3s, opacity 0.3s;
         }
         .sidebar.closed {
             width: 0;
+            opacity: 0;
         }
         .sidebar ul {
             opacity: 1;
@@ -64,6 +65,14 @@
             document.getElementById("defaultOpen").click();
 
             const sidebar = document.querySelector('.sidebar');
+            document.addEventListener('mousemove', function(event) {
+                if (event.clientX < 50) {
+                    openSidebar();
+                } else if (event.clientX > 300) {
+                    closeSidebar();
+                }
+            });
+
             sidebar.addEventListener('mouseenter', openSidebar);
             sidebar.addEventListener('mouseleave', closeSidebar);
         });
