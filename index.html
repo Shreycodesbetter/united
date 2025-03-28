@@ -26,8 +26,79 @@
         .logo {
             border-radius: 50%;
         }
+        .loading-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1c1c1e;
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        .hidden {
+            display: none;
+        }
+        .fade-out {
+            opacity: 0;
+        }
     </style>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const quotes = [
+                "No one is useless in this world who lightens the burdens of another - Charles Dickens",
+                "For it is in giving that we receive - St. Francis of Assisi",
+                "It is not how much we give, but it is how much love we put in it - Mother Teresa",
+                "No one has ever become poor by giving - Anne Frank",
+                "We rise by lifting others - Robert Ingersoll"
+            ];
+
+            let currentQuoteIndex = 0;
+            const loadingScreen = document.querySelector('.loading-screen');
+            const quoteElement = document.querySelector('.loading-screen .quote');
+
+            function updateQuote() {
+                quoteElement.textContent = quotes[currentQuoteIndex];
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            }
+
+            setInterval(updateQuote, 5000);
+
+            // Show the loading screen initially
+            loadingScreen.classList.remove('hidden');
+            updateQuote();
+
+            // Hide the loading screen after a random duration between 5 and 10 seconds
+            const duration = Math.floor(Math.random() * 6) + 5;
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                }, 1000);
+            }, duration * 1000);
+
+            document.getElementById("defaultOpen").click();
+
+            const sidebar = document.querySelector('.sidebar');
+            document.addEventListener('mousemove', function(event) {
+                if (event.clientX < 50) {
+                    openSidebar();
+                } else if (event.clientX > 300) {
+                    closeSidebar();
+                }
+            });
+
+            sidebar.addEventListener('mouseenter', openSidebar);
+            sidebar.addEventListener('mouseleave', closeSidebar);
+        });
+
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -63,26 +134,13 @@
             const sidebar = document.querySelector('.sidebar');
             sidebar.classList.remove('closed');
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("defaultOpen").click();
-
-            const sidebar = document.querySelector('.sidebar');
-            document.addEventListener('mousemove', function(event) {
-                if (event.clientX < 50) {
-                    openSidebar();
-                } else if (event.clientX > 300) {
-                    closeSidebar();
-                }
-            });
-
-            sidebar.addEventListener('mouseenter', openSidebar);
-            sidebar.addEventListener('mouseleave', closeSidebar);
-        });
     </script>
     <script src="//code.tidio.co/glog0vlopasrnkixnhew2fzus8ki8un4.js" async></script>
 </head>
 <body>
+    <div class="loading-screen">
+        <div class="quote"></div>
+    </div>
     <header>
         <div class="logo-container">
             <img src="favicon.ico" alt="Brighter Tomorrow Logo" class="logo">
@@ -116,7 +174,7 @@
         <div id="programs" class="tabcontent">
             <h2>Our Programs</h2>
             <p>Every year, we make a heartfelt journey to visit a group of incredible children in India. These young individuals embody kindness, perseverance, and an unbreakable spirit despite the challenges they face. Our programs are designed to provide them with the resources and support they need to thrive.</p>
-            <h3>Upcoming Dates</h3>
+            <h3>Dates We Visited:</h3>
             <ul>
                 <li>December 26th, 2025</li>
             </ul>
