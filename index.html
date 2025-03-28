@@ -6,6 +6,15 @@
     <title>Brighter Tomorrow - Charity for Indian School</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        .sidebar {
+            width: 250px;
+            transition: width 0.3s;
+        }
+        .sidebar.closed {
+            width: 0;
+        }
+    </style>
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
@@ -33,8 +42,22 @@
             indicator.style.height = rect.height + "px";
         }
 
+        function closeSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.add('closed');
+        }
+
+        function openSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.remove('closed');
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("defaultOpen").click();
+
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.addEventListener('mouseenter', openSidebar);
+            sidebar.addEventListener('mouseleave', closeSidebar);
         });
     </script>
     <script src="//code.tidio.co/glog0vlopasrnkixnhew2fzus8ki8un4.js" async></script>
@@ -47,12 +70,12 @@
         </div>
     </header>
 
-    <nav class="sidebar">
+    <nav class="sidebar closed">
         <ul>
             <li><a href="#home" class="tablinks" onclick="openTab(event, 'home')" id="defaultOpen">Home</a></li>
             <li><a href="#about" class="tablinks" onclick="openTab(event, 'about')">About Us</a></li>
             <li><a href="#programs" class="tablinks" onclick="openTab(event, 'programs')">Programs</a></li>
-            <li><a href="donate.html" class="tablinks" onclick="openTab(event, 'donate')">Donate</a></li>
+            <li><a href="#donate" class="tablinks active" onclick="openTab(event, 'donate')">Donate</a></li>
             <li><a href="#gallery" class="tablinks" onclick="openTab(event, 'gallery')">Gallery</a></li>
             <li><a href="#testimonials" class="tablinks" onclick="openTab(event, 'testimonials')">Testimonials</a></li>
             <div class="indicator"></div>
@@ -62,31 +85,36 @@
     <div class="main-content">
         <div id="home" class="tabcontent">
             <h2>Welcome to Brighter Tomorrow</h2>
-            <p>Our mission is to support the education of underprivileged children in India. We believe that every child deserves access to quality education, regardless of their socioeconomic background. Our efforts are focused on providing essential resources, educational materials, and support to help these children achieve their dreams. Together, we can create a brighter tomorrow for these young minds.</p>
+            <p>Our mission is to support the education of underprivileged children in India. We believe that every child deserves access to quality education, regardless of their socioeconomic background.</p>
         </div>
 
         <div id="about" class="tabcontent">
             <h2>About Us</h2>
-            <p>Brighter Tomorrow is a non-profit organization dedicated to improving the lives of children through education. Founded by a group of passionate individuals, our organization aims to bridge the educational gap for underprivileged children in India. We work closely with local communities, schools, and volunteers to provide the necessary support and resources. Our goal is to empower these children with the knowledge and skills they need to build a better future for themselves and their families.</p>
+            <p>Brighter Tomorrow is a non-profit organization dedicated to improving the lives of children through education. Founded by a group of passionate individuals, our organization aims to create a brighter future for children in need.</p>
         </div>
 
         <div id="programs" class="tabcontent">
             <h2>Our Programs</h2>
-            <p>Every year, we make a heartfelt journey to visit a group of incredible children in India. These young individuals embody kindness, perseverance, and an unbreakable spirit despite the challenges they face. We bring with us essential supplies, educational materials, and a wealth of knowledge to support their growth and development. Through our continued efforts, we aim to provide these children with the opportunities they deserve to build a brighter future.</p>
+            <p>Every year, we make a heartfelt journey to visit a group of incredible children in India. These young individuals embody kindness, perseverance, and an unbreakable spirit despite the challenges they face. Our programs are designed to provide them with the resources and support they need to thrive.</p>
         </div>
 
-        <div id="donate" class="tabcontent">
-            <h2>Donate</h2>
-            <p>Help us make a difference by donating to our cause. Your generous contributions enable us to provide the necessary resources and support to underprivileged children in India. Every donation, no matter the size, makes a significant impact on their lives. Online donations are accepted, and we ensure that your contributions are used effectively to create a positive change. Join us in our mission to create a brighter tomorrow for these children. Together, we can transform lives and build a better future for all.</p>
+        <div id="donate" class="tabcontent active">
+            <h2>Donate to Brighter Tomorrow</h2>
+            <p>Your generous contributions enable us to provide the necessary resources and support to underprivileged children in India. Every donation, no matter the size, makes a significant impact on their lives.</p>
+
+            <h3>Monetary Donations</h3>
             <form action="https://www.paypal.com/donate" method="post" target="_top">
                 <input type="hidden" name="hosted_button_id" value="YOUR_PAYPAL_BUTTON_ID" />
                 <input type="submit" value="Donate with PayPal" class="paypal-button" />
             </form>
+
+            <h3>Donate Supplies and Resources</h3>
+            <p>If you would like to donate school supplies, educational materials, or other resources, please contact us.</p>
         </div>
 
         <div id="gallery" class="tabcontent">
             <h2>Gallery</h2>
-            <p>Photos and videos of our activities and events. Our gallery showcases the smiles, achievements, and transformative moments of the children we support. Browse through our collection to witness the impact of our efforts and the joy we bring to these young minds. From educational workshops to community events, each photo and video captures the essence of our mission and the positive change we strive to create.</p>
+            <p>Photos and videos of our activities and events. Our gallery showcases the smiles, achievements, and transformative moments of the children we support. Browse through our collection and see the impact of our efforts.</p>
             <div class="gallery-container">
                 <div class="gallery-item tall"><img src="img1.jpg" alt="Image 1"></div>
                 <div class="gallery-item wide"><img src="img2.jpg" alt="Image 2"></div>
@@ -98,7 +126,7 @@
 
         <div id="testimonials" class="tabcontent">
             <h2>Testimonials</h2>
-            <p>Stories and testimonials from our students, parents, and donors. Hear directly from those whose lives have been touched by Brighter Tomorrow. Our testimonials reflect the gratitude, hope, and inspiration experienced by the children and families we support. Read their stories to understand the profound impact of our work and the difference we make in their lives. Your support is instrumental in creating these success stories, and we are deeply grateful for your contributions.</p>
+            <p>Stories and testimonials from our students, parents, and donors. Hear directly from those whose lives have been touched by Brighter Tomorrow. Our testimonials reflect the gratitude and positive impact of our efforts.</p>
         </div>
     </div>
 
