@@ -52,51 +52,158 @@
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const quotes = [
-                "No one is useless in this world who lightens the burdens of another - Charles Dickens",
-                "For it is in giving that we receive - St. Francis of Assisi",
-                "It is not how much we give, but it is how much love we put in it - Mother Teresa",
-                "No one has ever become poor by giving - Anne Frank",
-                "We rise by lifting others - Robert Ingersoll"
-            ];
-
-            let currentQuoteIndex = 0;
-            const loadingScreen = document.querySelector('.loading-screen');
-            const quoteElement = document.querySelector('.loading-screen .quote');
-
-            function updateQuote() {
-                quoteElement.textContent = quotes[currentQuoteIndex];
-                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-            }
-
-            setInterval(updateQuote, 5000);
-
-            // Show the loading screen initially
-            loadingScreen.classList.remove('hidden');
-            updateQuote();
-
-            // Hide the loading screen after a random duration between 5 and 10 seconds
-            const duration = Math.floor(Math.random() * 6) + 5;
-            setTimeout(() => {
-                loadingScreen.classList.add('fade-out');
-                setTimeout(() => {
-                    loadingScreen.classList.add('hidden');
-                }, 1000);
-            }, duration * 1000);
-
-            document.getElementById("defaultOpen").click();
-
-            const sidebar = document.querySelector('.sidebar');
-            document.addEventListener('mousemove', function(event) {
-                if (event.clientX < 50) {
-                    openSidebar();
-                } else if (event.clientX > 300) {
-                    closeSidebar();
+            const translations = {
+                en: {
+                    "welcome-title": "Welcome to Brighter Tomorrow",
+                    "welcome-content": "Our mission is to support the education of underprivileged children in India. We believe that every child deserves access to quality education, regardless of their socioeconomic background.",
+                    "about-title": "About Us",
+                    "about-content": "Brighter Tomorrow is a non-profit organization dedicated to improving the lives of children through education. Founded by a group of passionate individuals, our organization aims to provide the necessary resources and support to underprivileged children in India.",
+                    "programs-title": "Our Programs",
+                    "programs-content": "Every year, we make a heartfelt journey to visit a group of incredible children in India. These young individuals embody kindness, perseverance, and an unbreakable spirit despite the challenges they face. Our programs are designed to provide them with the education and resources they need to succeed.",
+                    "programs-dates-title": "Dates We Visited:",
+                    "programs-dates": "December 26th, 2025",
+                    "donate-title": "Donate to Brighter Tomorrow",
+                    "donate-content": "Your generous contributions enable us to provide the necessary resources and support to underprivileged children in India. Every donation, no matter the size, makes a significant impact on their lives.",
+                    "donate-monetary-title": "Monetary Donations",
+                    "donate-supplies-title": "Donate Supplies and Resources",
+                    "donate-supplies-content": "If you would like to donate school supplies, educational materials, or other resources, please contact us.",
+                    "gallery-title": "Gallery",
+                    "gallery-content": "Photos and videos of our activities and events. Our gallery showcases the smiles, achievements, and transformative moments of the children we support. Browse through our collection to see the impact of your contributions.",
+                    "testimonials-title": "Testimonials",
+                    "testimonials-content": "Stories and testimonials from our students, parents, and donors. Hear directly from those whose lives have been touched by Brighter Tomorrow. Our testimonials reflect the gratitude and positive impact of our work."
+                },
+                es: {
+                    "welcome-title": "Bienvenido a Brighter Tomorrow",
+                    "welcome-content": "Nuestra misión es apoyar la educación de los niños desfavorecidos en la India. Creemos que cada niño merece acceso a una educación de calidad, independientemente de su situación socioeconómica.",
+                    "about-title": "Sobre Nosotros",
+                    "about-content": "Brighter Tomorrow es una organización sin fines de lucro dedicada a mejorar la vida de los niños a través de la educación. Fundada por un grupo de personas apasionadas, nuestra organización tiene como objetivo proporcionar los recursos y el apoyo necesarios a los niños desfavorecidos en la India.",
+                    "programs-title": "Nuestros Programas",
+                    "programs-content": "Cada año, hacemos un viaje lleno de corazón para visitar a un grupo de niños increíbles en la India. Estos jóvenes encarnan la bondad, la perseverancia y un espíritu inquebrantable a pesar de los desafíos que enfrentan. Nuestros programas están diseñados para proporcionarles la educación y los recursos que necesitan para tener éxito.",
+                    "programs-dates-title": "Fechas que Visitamos:",
+                    "programs-dates": "26 de diciembre de 2025",
+                    "donate-title": "Donar a Brighter Tomorrow",
+                    "donate-content": "Sus generosas contribuciones nos permiten proporcionar los recursos y el apoyo necesarios a los niños desfavorecidos en la India. Cada donación, sin importar el tamaño, tiene un impacto significativo en sus vidas.",
+                    "donate-monetary-title": "Donaciones Monetarias",
+                    "donate-supplies-title": "Donar Suministros y Recursos",
+                    "donate-supplies-content": "Si desea donar suministros escolares, materiales educativos u otros recursos, comuníquese con nosotros.",
+                    "gallery-title": "Galería",
+                    "gallery-content": "Fotos y videos de nuestras actividades y eventos. Nuestra galería muestra las sonrisas, logros y momentos transformadores de los niños que apoyamos. Explore nuestra colección para ver el impacto de sus contribuciones.",
+                    "testimonials-title": "Testimonios",
+                    "testimonials-content": "Historias y testimonios de nuestros estudiantes, padres y donantes. Escuche directamente de aquellos cuyas vidas han sido tocadas por Brighter Tomorrow. Nuestros testimonios reflejan la gratitud y el impacto positivo de nuestro trabajo."
+                },
+                fr: {
+                    "welcome-title": "Bienvenue chez Brighter Tomorrow",
+                    "welcome-content": "Notre mission est de soutenir l'éducation des enfants défavorisés en Inde. Nous croyons que chaque enfant mérite un accès à une éducation de qualité, indépendamment de leur situation socioéconomique.",
+                    "about-title": "À Propos de Nous",
+                    "about-content": "Brighter Tomorrow est une organisation à but non lucratif dédiée à l'amélioration de la vie des enfants par l'éducation. Fondée par un groupe de personnes passionnées, notre organisation vise à fournir les ressources et l'assistance nécessaires aux enfants défavorisés en Inde.",
+                    "programs-title": "Nos Programmes",
+                    "programs-content": "Chaque année, nous faisons un voyage empreint de cœur pour rendre visite à un groupe d'enfants incroyables en Inde. Ces jeunes incarnent la bonté, la persévérance et un esprit indomptable malgré les défis qu'ils affrontent. Nos programmes sont conçus pour leur apporter l'éducation et les ressources dont ils ont besoin pour réussir.",
+                    "programs-dates-title": "Dates de Nos Visites:",
+                    "programs-dates": "26 décembre 2025",
+                    "donate-title": "Faire un Don à Brighter Tomorrow",
+                    "donate-content": "Vos généreuses contributions nous permettent de fournir les ressources et l'assistance nécessaires aux enfants défavorisés en Inde. Chaque don, peu importe sa taille, a un impact significatif sur leur vie.",
+                    "donate-monetary-title": "Dons Monétaires",
+                    "donate-supplies-title": "Faire un Don de Fournitures et de Ressources",
+                    "donate-supplies-content": "Si vous souhaitez faire don de fournitures scolaires, de matériel éducatif ou d'autres ressources, veuillez nous contacter.",
+                    "gallery-title": "Galerie",
+                    "gallery-content": "Photos et vidéos de nos activités et événements. Notre galerie présente les sourires, réalisations et moments transformateurs des enfants que nous soutenons. Parcourez notre collection pour voir l'impact de vos contributions.",
+                    "testimonials-title": "Témoignages",
+                    "testimonials-content": "Histoires et témoignages de nos élèves, parents et donateurs. Écoutez directement ceux dont la vie a été touchée par Brighter Tomorrow. Nos témoignages reflètent la gratitude et l'impact positif de notre travail."
+                },
+                de: {
+                    "welcome-title": "Willkommen bei Brighter Tomorrow",
+                    "welcome-content": "Unsere Mission ist es, die Bildung benachteiligter Kinder in Indien zu unterstützen. Wir glauben, dass jedes Kind unabhängig von seinem sozioökonomischen Hintergrund Zugang zu hochwertiger Bildung haben sollte.",
+                    "about-title": "Über Uns",
+                    "about-content": "Brighter Tomorrow ist eine gemeinnützige Organisation, die sich der Verbesserung des Lebens von Kindern durch Bildung widmet. Gegründet von einer Gruppe leidenschaftlicher Menschen, zielt unsere Organisation darauf ab, die notwendigen Ressourcen und Unterstützung für benachteiligte Kinder in Indien bereitzustellen.",
+                    "programs-title": "Unsere Programme",
+                    "programs-content": "Jedes Jahr unternehmen wir eine herzliche Reise, um eine Gruppe unglaublicher Kinder in Indien zu besuchen. Diese jungen Menschen verkörpern Freundlichkeit, Ausdauer und einen unerschütterlichen Geist trotz der Herausforderungen, denen sie gegenüberstehen. Unsere Programme sind darauf ausgelegt, ihnen die Bildung und Ressourcen zu bieten, die sie für ihren Erfolg benötigen.",
+                    "programs-dates-title": "Besuchte Termine:",
+                    "programs-dates": "26. Dezember 2025",
+                    "donate-title": "Spenden an Brighter Tomorrow",
+                    "donate-content": "Ihre großzügigen Beiträge ermöglichen es uns, die notwendigen Ressourcen und Unterstützung für benachteiligte Kinder in Indien bereitzustellen. Jede Spende, egal wie klein, hat einen bedeutenden Einfluss auf ihr Leben.",
+                    "donate-monetary-title": "Geldspenden",
+                    "donate-supplies-title": "Spenden von Materialien und Ressourcen",
+                    "donate-supplies-content": "Wenn Sie Schulmaterial, Unterrichtsmaterialien oder andere Ressourcen spenden möchten, kontaktieren Sie uns bitte.",
+                    "gallery-title": "Galerie",
+                    "gallery-content": "Fotos und Videos unserer Aktivitäten und Veranstaltungen. Unsere Galerie zeigt die Lächeln, Errungenschaften und transformierenden Momente der Kinder, die wir unterstützen. Durchstöbern Sie unsere Sammlung, um die Auswirkungen Ihrer Beiträge zu sehen.",
+                    "testimonials-title": "Testimonials",
+                    "testimonials-content": "Geschichten und Testimonials unserer Schüler, Eltern und Spender. Hören Sie direkt von denen, deren Leben von Brighter Tomorrow berührt wurde. Unsere Testimonials spiegeln die Dankbarkeit und die positiven Auswirkungen unserer Arbeit wider."
+                },
+                zh: {
+                    "welcome-title": "欢迎来到Brighter Tomorrow",
+                    "welcome-content": "我们的使命是支持印度贫困儿童的教育。我们相信，每个孩子都应该享有优质教育，无论他们的社会经济背景如何。",
+                    "about-title": "关于我们",
+                    "about-content": "Brighter Tomorrow是一家非营利组织，致力于通过教育改善儿童的生活。由一群热情的人创立，我们的组织旨在为印度贫困儿童提供必要的资源和支持。",
+                    "programs-title": "我们的项目",
+                    "programs-content": "每年，我们都会进行一次充满爱心的旅程，探访印度的一群了不起的孩子。这些年轻人尽管面临挑战，却体现了善良、毅力和坚强的精神。我们的项目旨在为他们提供教育和资源，让他们能够成功。",
+                    "programs-dates-title": "我们访问的日期：",
+                    "programs-dates": "2025年12月26日",
+                    "donate-title": "捐赠给Brighter Tomorrow",
+                    "donate-content": "您的慷慨捐助使我们能够为印度贫困儿童提供必要的资源和支持。每一笔捐款，无论大小，都会对他们的生活产生重大影响。",
+                    "donate-monetary-title": "货币捐赠",
+                    "donate-supplies-title": "捐赠物资和资源",
+                    "donate-supplies-content": "如果您想捐赠学习用品、教育材料或其他资源，请联系我们。",
+                    "gallery-title": "画廊",
+                    "gallery-content": "我们的活动和事件的照片和视频。我们的画廊展示了我们支持的孩子们的笑容、成就和转变时刻。浏览我们的收藏，了解您的捐赠所带来的影响。",
+                    "testimonials-title": "推荐",
+                    "testimonials-content": "我们的学生、家长和捐赠者的故事和推荐。直接听听那些被Brighter Tomorrow触动的人们的心声。我们的推荐反映了我们的工作带来的感激和积极影响。"
+                },
+                ru: {
+                    "welcome-title": "Добро пожаловать в Brighter Tomorrow",
+                    "welcome-content": "Наша миссия - поддержка образования детей из малообеспеченных семей в Индии. Мы верим, что каждый ребенок заслуживает доступа к качественному образованию, независимо от их социально-экономического положения.",
+                    "about-title": "О Нас",
+                    "about-content": "Brighter Tomorrow - это некоммерческая организация, посвященная улучшению жизни детей через образование. Основанная группой увлеченных людей, наша организация стремится предоставлять необходимые ресурсы и поддержку детям из малообеспеченных семей в Индии.",
+                    "programs-title": "Наши Программы",
+                    "programs-content": "Каждый год мы совершаем поездку с любовью, чтобы навестить группу невероятных детей в Индии. Эти молодые люди, несмотря на трудности, воплощают доброту, настойчивость и несгибаемый дух. Наши программы направлены на то, чтобы предоставить им необходимое образование и ресурсы для достижения успеха.",
+                    "programs-dates-title": "Даты Посещений:",
+                    "programs-dates": "26 декабря 2025 года",
+                    "donate-title": "Пожертвовать Brighter Tomorrow",
+                    "donate-content": "Ваши щедрые пожертвования позволяют нам предоставлять необходимые ресурсы и поддержку детям из малообеспеченных семей в Индии. Каждое пожертвование, независимо от его размера, оказывает значительное влияние на их жизнь.",
+                    "donate-monetary-title": "Денежные Пожертвования",
+                    "donate-supplies-title": "Пожертвовать Принадлежности и Ресурсы",
+                    "donate-supplies-content": "Если вы хотите пожертвовать школьные принадлежности, учебные материалы или другие ресурсы, пожалуйста, свяжитесь с нами.",
+                    "gallery-title": "Галерея",
+                    "gallery-content": "Фотографии и видео наших мероприятий. Наша галерея демонстрирует улыбки, достижения и преобразующие моменты детей, которых мы поддерживаем. Просмотрите нашу коллекцию, чтобы увидеть влияние ваших пожертвований.",
+                    "testimonials-title": "Отзывы",
+                    "testimonials-content": "Истории и отзывы наших учеников, родителей и доноров. Услышьте напрямую от тех, чья жизнь была затронута Brighter Tomorrow. Наши отзывы отражают благодарность и положительное влияние нашей работы."
+                },
+                ar: {
+                    "welcome-title": "مرحبا بكم في Brighter Tomorrow",
+                    "welcome-content": "مهمتنا هي دعم تعليم الأطفال المحرومين في الهند. نحن نؤمن بأن كل طفل يستحق الحصول على تعليم عالي الجودة ، بغض النظر عن خلفيته الاجتماعية والاقتصادية.",
+                    "about-title": "معلومات عنا",
+                    "about-content": "Brighter Tomorrow هي منظمة غير ربحية مكرسة لتحسين حياة الأطفال من خلال التعليم. تأسست من قبل مجموعة من الأفراد المتحمسين ، تهدف منظمتنا إلى توفير الموارد والدعم اللازم للأطفال المحرومين في الهند.",
+                    "programs-title": "برامجنا",
+                    "programs-content": "كل عام ، نقوم برحلة مليئة بالعاطفة لزيارة مجموعة من الأطفال الرائعين في الهند. هؤلاء الشباب يجسدون اللطف والمثابرة وروحًا لا تنكسر رغم التحديات التي يواجهونها. تم تصميم برامجنا لتزويدهم بالتعليم والموارد التي يحتاجونها للنجاح.",
+                    "programs-dates-title": "تواريخ الزيارة:",
+                    "programs-dates": "26 ديسمبر 2025",
+                    "donate-title": "التبرع لـ Brighter Tomorrow",
+                    "donate-content": "تسمح لنا تبرعاتك السخية بتقديم الموارد والدعم اللازم للأطفال المحرومين في الهند. كل تبرع ، بغض النظر عن حجمه ، له تأثير كبير على حياتهم.",
+                    "donate-monetary-title": "التبرعات المالية",
+                    "donate-supplies-title": "التبرع بالإمدادات والموارد",
+                    "donate-supplies-content": "إذا كنت ترغب في التبرع بالإمدادات المدرسية أو المواد التعليمية أو الموارد الأخرى ، يرجى الاتصال بنا.",
+                    "gallery-title": "معرض الصور",
+                    "gallery-content": "صور وفيديوهات لأنشطتنا وفعالياتنا. يعرض معرضنا الابتسامات والإنجازات واللحظات التحويلية للأطفال الذين ندعمهم. تصفح مجموعتنا لترى تأثير تبرعاتك.",
+                    "testimonials-title": "الشهادات",
+                    "testimonials-content": "قصص وشهادات من طلابنا وأولياء الأمور والمتبرعين. استمع مباشرة من الأشخاص الذين تأثرت حياتهم بـ Brighter Tomorrow. تعكس شهاداتنا الامتنان والتأثير الإيجابي لعملنا."
                 }
+            };
+
+            const languageSelector = document.getElementById('language-selector');
+            languageSelector.addEventListener('change', function() {
+                const selectedLanguage = languageSelector.value;
+                loadTranslations(selectedLanguage);
             });
 
-            sidebar.addEventListener('mouseenter', openSidebar);
-            sidebar.addEventListener('mouseleave', closeSidebar);
+            function loadTranslations(language) {
+                const translation = translations[language];
+                document.querySelectorAll('[data-translate-key]').forEach(element => {
+                    const key = element.getAttribute('data-translate-key');
+                    element.textContent = translation[key];
+                });
+            }
+
+            // Load default language (English)
+            loadTranslations('en');
         });
 
         function openTab(evt, tabName) {
@@ -107,113 +214,4 @@
                 tabcontent[i].classList.remove("active");
             }
             tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            setTimeout(() => {
-                document.getElementById(tabName).classList.add("active");
-            }, 10);
-            evt.currentTarget.className += " active";
-            moveIndicator(evt.currentTarget);
-        }
-
-        function moveIndicator(element) {
-            const indicator = document.querySelector('.indicator');
-            const rect = element.getBoundingClientRect();
-            indicator.style.top = rect.top + "px";
-            indicator.style.height = rect.height + "px";
-        }
-
-        function closeSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.add('closed');
-        }
-
-        function openSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.remove('closed');
-        }
-    </script>
-    <script src="//code.tidio.co/glog0vlopasrnkixnhew2fzus8ki8un4.js" async></script>
-</head>
-<body>
-    <div class="loading-screen">
-        <div class="quote"></div>
-    </div>
-    <header>
-        <div class="logo-container">
-            <img src="favicon.ico" alt="Brighter Tomorrow Logo" class="logo">
-            <h1>Brighter Tomorrow</h1>
-        </div>
-    </header>
-
-    <nav class="sidebar closed">
-        <ul>
-            <li><a href="#home" class="tablinks" onclick="openTab(event, 'home')" id="defaultOpen">Home</a></li>
-            <li><a href="#about" class="tablinks" onclick="openTab(event, 'about')">About Us</a></li>
-            <li><a href="#programs" class="tablinks" onclick="openTab(event, 'programs')">Programs</a></li>
-            <li><a href="#donate" class="tablinks active" onclick="openTab(event, 'donate')">Donate</a></li>
-            <li><a href="#gallery" class="tablinks" onclick="openTab(event, 'gallery')">Gallery</a></li>
-            <li><a href="#testimonials" class="tablinks" onclick="openTab(event, 'testimonials')">Testimonials</a></li>
-            <div class="indicator"></div>
-        </ul>
-    </nav>
-
-    <div class="main-content">
-        <div id="home" class="tabcontent">
-            <h2>Welcome to Brighter Tomorrow</h2>
-            <p>Our mission is to support the education of underprivileged children in India. We believe that every child deserves access to quality education, regardless of their socioeconomic background.</p>
-        </div>
-
-        <div id="about" class="tabcontent">
-            <h2>About Us</h2>
-            <p>Brighter Tomorrow is a non-profit organization dedicated to improving the lives of children through education. Founded by a group of passionate individuals, our organization aims to create a brighter future for children in need.</p>
-        </div>
-
-        <div id="programs" class="tabcontent">
-            <h2>Our Programs</h2>
-            <p>Every year, we make a heartfelt journey to visit a group of incredible children in India. These young individuals embody kindness, perseverance, and an unbreakable spirit despite the challenges they face. Our programs are designed to provide them with the resources and support they need to thrive.</p>
-            <h3>Dates We Visited:</h3>
-            <ul>
-                <li>December 26th, 2025</li>
-            </ul>
-        </div>
-
-        <div id="donate" class="tabcontent active">
-            <h2>Donate to Brighter Tomorrow</h2>
-            <p>Your generous contributions enable us to provide the necessary resources and support to underprivileged children in India. Every donation, no matter the size, makes a significant impact on their lives.</p>
-
-            <h3>Monetary Donations</h3>
-            <form action="https://www.paypal.com/donate" method="post" target="_top">
-                <input type="hidden" name="hosted_button_id" value="YOUR_PAYPAL_BUTTON_ID" />
-                <input type="submit" value="Donate with PayPal" class="paypal-button" />
-            </form>
-
-            <h3>Donate Supplies and Resources</h3>
-            <p>If you would like to donate school supplies, educational materials, or other resources, please contact us.</p>
-        </div>
-
-        <div id="gallery" class="tabcontent">
-            <h2>Gallery</h2>
-            <p>Photos and videos of our activities and events. Our gallery showcases the smiles, achievements, and transformative moments of the children we support. Browse through our collection and see the impact of our efforts.</p>
-            <div class="gallery-container">
-                <div class="gallery-item tall"><img src="img1.jpg" alt="Image 1"></div>
-                <div class="gallery-item wide"><img src="img2.jpg" alt="Image 2"></div>
-                <div class="gallery-item"><img src="img3.jpg" alt="Image 3"></div>
-                <div class="gallery-item tall"><img src="img4.jpg" alt="Image 4"></div>
-                <div class="gallery-item wide"><img src="img5.jpg" alt="Image 5"></div>
-            </div>
-        </div>
-
-        <div id="testimonials" class="tabcontent">
-            <h2>Testimonials</h2>
-            <p>Stories and testimonials from our students, parents, and donors. Hear directly from those whose lives have been touched by Brighter Tomorrow. Our testimonials reflect the gratitude and positive impact of our efforts.</p>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; Brighter Tomorrow. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+            for (i =
